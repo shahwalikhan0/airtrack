@@ -1,0 +1,118 @@
+.profile-container {
+    margin-top: 10vh !important;
+    margin-bottom: 10vh !important;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+.profile-container button {
+    margin-right: 10px;
+}
+
+h1 {
+    margin-top: 0;
+}
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile label {
+    font-weight: bold;
+    margin-right: 10px;
+    flex-basis: 150px;
+}
+
+.profile span {
+    font-size: 18px;
+}
+
+.profile button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile button:hover {
+    background-color: #3e8e41;
+}
+
+.profile-update-form{
+    display: none;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.profile-update-form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.profile-update-form input[type=text] {
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.password-update-form input {
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.edit-profile {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+}
+.profile-update-form button[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-update-form button[type=submit]:hover {
+    background-color: #3e8e41;
+}
+
+.profile-update-form button[type=button] {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-update-form button[type=button]:hover {
+    background-color: #bbb;
+}

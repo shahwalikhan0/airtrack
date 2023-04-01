@@ -1,0 +1,61 @@
+.flight-container-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.flight-container-header button{
+  margin-left: auto;
+  margin-right: 10px;
+}
+.flight-main{
+  padding: 2%;
+}
+
+.flight-search-input{
+  width: 30vw;
+  margin-left: 44vw;
+}
+
+.flight-container-header h1 {
+  margin-right: 10px;
+}
+
+  .flight-main table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .flight-main th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .flight-main th {
+    background-color: #f2f2f2;
+  }
+
+  .flight-main .center {
+    text-align: center;
+  }
+
+  .flight-main .button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .flight-main .button:hover {
+    background-color: #3e8e41;
+  }
+
+  .flight-main .button:disabled {
+    background-color: #cccccc;
+    cursor: default;
+  }
