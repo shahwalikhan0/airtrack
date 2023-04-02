@@ -1,12 +1,16 @@
 import React, {useContext} from "react";
-import { MyContext } from "../App";
 import "./signup.css";
 
 export function Signup() {
-    const { isLogged } = useContext(MyContext);
+    const isLogged = localStorage.getItem('isLogged');
     if(isLogged) {
         alert("You are already logged in");
        window.location.href = "/home";
+    }
+    const handleSignup = (event) => {
+        event.preventDefault();
+        localStorage.setItem('isAdmin', true);
+        window.location.href = "/admin/home";
     }
 
     return (
@@ -21,7 +25,7 @@ export function Signup() {
                 <input type="text" className="input-field" placeholder="Enter 5 digit account number" required />
                 <input type="text" className="input-field" placeholder="Enter Password" required />
                 <input type="text" className="input-field" placeholder="Re-enter Password" required />
-                <button type="submit" className="submit-btn">Sign Up</button>
+                <button type="submit" className="submit-btn" onClick={handleSignup}>Sign Up</button>
             </form>
             </div>
         </main>

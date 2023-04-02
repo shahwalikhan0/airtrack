@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from "./general/Navbar";
 import { Login } from "./general/Login";
@@ -9,16 +9,17 @@ import { Contact } from './passenger/Contact';
 import { Profile } from './passenger/Profile';
 import { Flight } from './passenger/Flight';
 import { Booking } from './passenger/Booking';
+import { AdminNavbar } from './admin/AdminNavbar';
+import { AdminHome } from './admin/AdminHome';
+import {Management} from './admin/Management';
+import {Home} from './passenger/Home';
 
-export const MyContext = createContext();
 function App() {
-  const [isLogged, setIsLogged] = useState();
-  const [isAdmin, setIsAdmin] = useState(false);
-  console.log(isLogged);
+
+  const isAdmin = localStorage.getItem("isAdmin");
   return (
-    <MyContext.Provider value={{ isLogged, setIsLogged, isAdmin, setIsAdmin }}>
     <Router>
-      <Navbar/>
+      {isAdmin === 'true' ? <AdminNavbar/> : <Navbar/>}
         <Routes>
           <Route exact path="/" element={<Login/>} />
           <Route exact path="/about" element={<About/>} />
@@ -27,10 +28,12 @@ function App() {
           <Route exact path="/user/flight" element={<Flight/>} />
           <Route exact path="/signup" element={<Signup/>} />
           <Route exact path="/user/booking" element={<Booking/>} />
+          <Route exact path="/admin/home" element={<AdminHome/>} />
+          <Route exact path="/admin/management" element={<Management/>} />
+          <Route exact path="/user/home" element={<Home/>} />
         </Routes>
       <Footer/>
     </Router>
-    </MyContext.Provider>
   );
 }
 
