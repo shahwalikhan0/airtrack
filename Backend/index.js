@@ -1,22 +1,17 @@
-const sql = require('mssql/tedious');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-var config = {
-    server: 'localhost',
-    user: 'sa',
-    password: 'i@intech',
-    database: 'auction1',
-    driver: 'tedious',
-    options: {
-        trustedConnection: true,
-        trustServerCertificate: true
-    }
-}
+const app = express();
+const port = 3001;
 
-sql.connect(config, function(err){
-    if(err) console.log(err);
-    var request = new sql.Request();
-    request.query('select * from admin', function(err, recordset){
-        if(err) console.log(err);
-        console.log("records ", recordset);
-    });
-})
+const usersRouter = require('./admin');
+
+app.use(bodyParser.json());
+
+app.use('/api', usersRouter);
+
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
+});
+
+
