@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const DiscountSchema = new mongoose.Schema({
-    membership_id: Number,
     discount_percent: Number,
+    discountCode: String,
 });
 
 const DiscountModel = mongoose.model('discount', DiscountSchema);

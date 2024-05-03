@@ -5,9 +5,9 @@ export const Management = () => {
   return (
     <>
       <main className='flight-main admin-main'>
-        <section class='service'>
+        <section className='service'>
           <h3>Admin Management</h3>
-          <div class='row'>
+          <div className='row'>
             <h3>Actions:</h3>
             <table>
               <thead>

@@ -3,12 +3,10 @@ import React, { createContext, useState } from 'react';
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState({});
-  const [login, setLogin] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(window.localStorage.getItem("isAdmin") === "true");
 
   return (
-    <AppContext.Provider value={{ user, setUser, login, setLogin, isAdmin, setIsAdmin }}>
+    <AppContext.Provider value={{ isAdmin, setIsAdmin }}>
       {children}
     </AppContext.Provider>
   );

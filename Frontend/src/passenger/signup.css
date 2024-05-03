@@ -20,13 +20,6 @@ main:has(.signup){
     box-shadow: 0 0 20px 9px aquamarine;
     border-radius: 30px;
 }
-.input-grp{
-    top: 100px;
-    position: absolute;
-    width:280px;
-    transition: 1s;
-    left: 50px;
-}
 .input-field{
     width:100%;
     padding:10px 0;
