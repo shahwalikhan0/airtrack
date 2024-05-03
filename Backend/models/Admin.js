@@ -8,3 +8,6 @@ const AdminSchema = new mongoose.Schema({
 
 const AdminModel = mongoose.model('admin', AdminSchema);
 module.exports = AdminModel;
+// git add .
+// git commit -m "string"
+// git push
