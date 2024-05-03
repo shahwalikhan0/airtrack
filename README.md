@@ -11,4 +11,4 @@ For running Frontend:
 - npm i
 - npm start
 
-make sure to correctly insert the url for MongoDB connection in Backend/server/js file
+make sure to correctly insert the url for MongoDB connection in Backend/server.js file
