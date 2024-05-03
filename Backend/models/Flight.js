@@ -1,11 +1,12 @@
-const { Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
 
 const FlightSchema = new mongoose.Schema({
-    arrival_time: Timestamp,
-    departure_time: Timestamp,
-    destination:String,
-    date:Date,
+    date: Date,
+    destination: String,
+    departure: String,
+    seats: Number,
+    seats_remaining: Number,
+    price: Number,
 });
 
 const FlightModel = mongoose.model('flight', FlightSchema);

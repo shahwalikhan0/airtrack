@@ -12,7 +12,7 @@ export const Flight = () => {
       <main className="flight-main">
         <div className="flight-container-header">
           <h1 style={{width: '50%'}}>Airtrack - Flights</h1>
-          <input class="flight-search-input form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
+          <input className="flight-search-input form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
           <button type="button" className="btn btn-success">Search</button>
           <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#filterModal">Filters</button>
         </div>

@@ -1,57 +1,88 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import './login.css'
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import AppContext from "../AppContext";
+import "./login.css";
 
+export const Login = () => {
+  const { setIsAdmin } = useContext(AppContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [admin, setAdmin] = useState(false);
+  const navigate = useNavigate();
 
-export const Login = ({ user, lastName }) => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const credentials = {
+      username: username,
+      password: password,
+      admin: admin,
+    };
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/admin')
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
-    , [])
-    const handleLogin = (event) => {
-        event.preventDefault();
-        const credentials = {
-            username: username,
-            password: password
-        };
+    axios
+      .post(`http://localhost:3001/login`, credentials)
+      .then((res) => {
+        window.localStorage.setItem("user", username);
+        window.localStorage.setItem("login", true);
+        window.localStorage.setItem("isAdmin", admin);
+        setIsAdmin(admin);
+        if (admin) navigate("/admin/home");
+        else navigate("/user/home");
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage(
+          err?.response?.data?.message || "Error logging in. Please try again."
+        );
+      });
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
+  }, [message]);
 
-        // Send the credentials to the backend
-        axios.post('http://localhost:3001/admin', credentials)
-            .then(res => {
-                // Handle response, e.g., redirect to another page if login successful
-                localStorage.setItem('isLogged', true);
-                window.location.href = "/about";
-            })
-            .catch(err => {
-                // Handle error, e.g., display error message to the user
-                console.log(err);
-            });
-    }
-    return (
-        <>
-            <main>
-                <div className="form-box">
-                    <div className="button-box">
-                        <h4>Welcome Back</h4>
-                    </div>
-                    <form id="login" className="input-grp" action="index.html">
-                        <input type="text" className="input-field" placeholder="User name" required value={username} onChange={(e) => setUsername(e.target.value)}/>
-                        <input type="text" className="input-field" placeholder="Enter Password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
-                        <button type="submit" className="submit-btn"onClick={handleLogin}>Log In</button>
-                    </form>
-                </div>
-            </main>
-        </>
-        )
-}
-
-
+  return (
+    <>
+      <main>
+        <div className="form-box">
+          <div className="login-title">
+            <h4>Welcome Back</h4>
+          </div>
+          <div className="login-message">{message}</div>
+          <form id="login" className="input-grp">
+            <input
+              type="text"
+              className="input-field"
+              placeholder="User name"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              className="input-field"
+              placeholder="Enter Password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label style={{ display: "flex" }}>
+              <input
+                type="checkbox"
+                style={{ marginRight: "10px" }}
+                value={admin}
+                onChange={(e) => setAdmin(e.target.checked)}
+              />
+              Admin
+            </label>
+            <button type="submit" className="submit-btn" onClick={handleLogin}>
+              Log In
+            </button>
+          </form>
+        </div>
+      </main>
+    </>
+  );
+};

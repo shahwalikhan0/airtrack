@@ -1,236 +1,136 @@
-import React from 'react'
-import './index.css'
+import React, { useEffect, useState } from "react";
+import { Table } from "antd";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {
+  inventoryColumns,
+  passengerColumns,
+  flightColumns,
+  revenueColumns,
+  couponColumns,
+} from "./constant";
+import { useAdminAuth } from "../general/constant";
+import "./index.css";
 
 export const AdminHome = () => {
+  const [flights, setFlights] = useState([]);
+  const [inventory, setInventory] = useState([]);
+  const [passenger, setPassenger] = useState([]);
+  const [revenue, setRevenue] = useState([]);
+  const [coupon, setCoupon] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const isAdminLoggedIn = useAdminAuth();
+  const username = window.localStorage.getItem("user");
+  useEffect(() => {
+    if (!isAdminLoggedIn) {
+      navigate("/");
+    }
+  }, [isAdminLoggedIn]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/flight")
+      .then((res) => {
+        setFlights(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+
+    axios
+      .get("http://localhost:3001/inventory")
+      .then((res) => {
+        setInventory(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+
+    axios
+      .get("http://localhost:3001/passenger")
+      .then((res) => {
+        setPassenger(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+
+    axios
+      .get("http://localhost:3001/revenue")
+      .then((res) => {
+        setRevenue(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+
+    axios
+      .get("http://localhost:3001/coupon")
+      .then((res) => {
+        setCoupon(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <>
-      <main className='flight-main admin-main'>
-        <section class='service'>
-          <h3>Shah Wali - Admin Dashboard</h3>
-          <div class='row'>
-            <h3>Flights</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Flight Number</th>
-                  <th>Destination</th>
-                  <th>Departure Airport</th>
-                  <th>Departure Time</th>
-                  <th>Arrival Time</th>
-                  <th>Price</th>
-                  <th>Seats Remaining</th>{' '}
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>FL001</td>
-                  <td>New York</td>
-                  <td>JFK Airport</td>
-                  <td>10:00 AM</td>
-                  <td>12:00 PM</td>
-                  <td>$500</td>
-                  <td className='center'>0</td>
-                </tr>
-                <tr>
-                  <td>FL002</td>
-                  <td>Los Angeles</td>
-                  <td>LAX Airport</td>
-                  <td>11:00 AM</td>
-                  <td>2:00 PM</td>
-                  <td>$500</td>
-                  <td className='center'>5</td>
-                </tr>
-                <tr>
-                  <td>FL003</td>
-                  <td>Chicago</td>
-                  <td>ORD Airport</td>
-                  <td>12:00 PM</td>
-                  <td>3:00 PM</td>
-                  <td>$500</td>
-                  <td className='center'>20</td>
-                </tr>
-                <tr>
-                  <td>FL004</td>
-                  <td>Miami</td>
-                  <td>MIA Airport</td>
-                  <td>1:00 PM</td>
-                  <td>4:00 PM</td>
-                  <td>$500</td>
-                  <td className='center'>15</td>
-                </tr>
-              </tbody>
-            </table>
+      <main className="flight-main admin-main">
+        <section className="service">
+          <h3>Welcome - {username}</h3>
+          <div className="row">
+              <h1>Flights</h1>
+              <Table
+              bordered
+                columns={flightColumns(flights)}
+                dataSource={flights}
+              />
           </div>
 
-          <div class='row'>
-            <h3>Inventory</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Inventory ID</th>
-                  <th>Item Name</th>
-                  <th>Quantity</th>
-                  <th>Admin ID</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Airplanes</td>
-                  <td>12</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Hostess</td>
-                  <td>30</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Computers</td>
-                  <td>10</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Airport Staff</td>
-                  <td>50</td>
-                  <td>1</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="row">
+            <h1>Inventory</h1>
+              <Table
+              bordered
+                columns={inventoryColumns(inventory)}
+                dataSource={inventory}
+              />
           </div>
 
-          <div class='row'>
-            <h3>Passenger</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Passenger ID</th>
-                  <th>Full Name</th>
-                  <th>Email</th>
-                  <th>Passport Number</th>
-                  <th>Prime Member</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Abdul Bari</td>
-                  <td>Abdulbari@hotmail.com</td>
-                  <td>789456</td>
-                  <td>No</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Abdul Basit</td>
-                  <td>Abdulbasit@hotmail.com</td>
-                  <td>789458</td>
-                  <td>Yes</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Abdul Rafay</td>
-                  <td>Abdulrafay@hotmail.com</td>
-                  <td>789476</td>
-                  <td>No</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="row">
+              <h1>Passenger</h1>
+              <Table
+              bordered
+                columns={passengerColumns(passenger)}
+                dataSource={passenger}
+              />
           </div>
 
-          <div class='row'>
-            <h3>Baggage</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Baggage ID</th>
-                  <th>Passenger Name</th>
-                  <th>Flight Number</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Abdul Bari</td>
-                  <td>FL003</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Abdul Basit</td>
-                  <td>FL004</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Abdul Rafay</td>
-                  <td>FL001</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="row">
+            <h1>Revenue</h1>
+              <Table
+              bordered
+                columns={revenueColumns(revenue)}
+                dataSource={revenue}
+              />
           </div>
 
-          <div class='row'>
-            <h3>Revenue</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Item</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Abdul Bari</td>
-                  <td>2003</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Abdul Basit</td>
-                  <td>104</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Abdul Rafay</td>
-                  <td>301</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class='row'>
-            <h3>Discount Coupons</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Coupon ID</th>
-                  <th>User Activated</th>
-                  <th>Coupon Code</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Abdul Bari</td>
-                  <td>123456</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>-</td>
-                  <td>654432</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Abdul Rafay</td>
-                  <td>iloveu</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="row">
+            <h1>Discount Coupon</h1>
+              <Table
+              bordered
+                columns={couponColumns(coupon)}
+                dataSource={coupon}
+              />
           </div>
         </section>
       </main>
     </>
-  )
-}
+  );
+};

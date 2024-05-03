@@ -4,7 +4,7 @@ import './index.css';
 import Logo from './logo.png';
 
 export function Navbar() {
-  const isLogged = localStorage.getItem('isLogged');
+  const isLogged = localStorage.getItem('login');
   function handleLog(e) {
     e.preventDefault();
     if (isLogged === 'true') {
