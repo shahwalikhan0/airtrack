@@ -1,20 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useUserAuth } from "./constant"
+import { useNavigate } from "react-router-dom";
 import './index.css';
 import Logo from './logo.png';
 
 export function Navbar() {
-  const isLogged = localStorage.getItem('login');
+  const navigate = useNavigate();
+  const isUserLoggedIn = useUserAuth();
+  useEffect(() => {
+    if (!isUserLoggedIn) {
+      navigate("/");
+    }
+  }, [isUserLoggedIn]);
+
   function handleLog(e) {
     e.preventDefault();
-    if (isLogged === 'true') {
+    if (isUserLoggedIn === 'true') {
       if (window.confirm("Are you sure you want to logout?")) {
         localStorage.clear();
-        window.location.href = "/";
+        navigate("/");
       }
     } 
-    else if(isLogged === 'false' || isLogged === null) {
-        window.location.href = "/";
+    else if(isUserLoggedIn === 'false' || isUserLoggedIn === null) {
+      navigate("/");
     }
   }
 
@@ -26,8 +35,7 @@ export function Navbar() {
           <h1>AIRTRACK</h1>
           <div className="nav-links">
             <ul>
-              <li><Link to="/about">ABOUT</Link></li>
-              { isLogged === 'true' ?
+              { isUserLoggedIn === true ?
               <>
               <li><Link to="/user/home">HOME</Link></li>
               <li><Link to="/user/flight">FLIGHTS</Link></li>
@@ -41,7 +49,7 @@ export function Navbar() {
                 <li><Link to="/signup">SIGNUP</Link></li>
                 </>
               }
-              <li><Link to="/" onClick={handleLog}>{isLogged === 'true' ? "LOGOUT" : "LOGIN"}</Link></li>
+              <li><Link to="/" onClick={handleLog}>{isUserLoggedIn === true ? "LOGOUT" : "LOGIN"}</Link></li>
             </ul>
           </div>
         </nav>

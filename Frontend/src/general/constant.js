@@ -8,5 +8,5 @@ export const useAdminAuth = () => {
 
 export const useUserAuth = () => {
   const { isAdmin, login } = window.localStorage;
-  return login && !isAdmin;
+  return login && (isAdmin=="false");
 };

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppContext, { AppProvider } from './AppContext';
 import { Navbar } from "./general/Navbar";
 import { Login } from "./general/Login";
-import { About } from "./passenger/About";
 import { Footer } from "./general/Footer";
 import { Signup } from './passenger/Signup';
 import { Contact } from './passenger/Contact';
@@ -24,7 +23,6 @@ function App() {
         </AppContext.Consumer>
         <Routes>
           <Route exact path="/" element={<Login />} />
-          <Route exact path="/about" element={<About />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/user/profile" element={<Profile />} />
           <Route exact path="/user/flight" element={<Flight />} />

@@ -18,7 +18,6 @@ export const AdminHome = () => {
   const [passenger, setPassenger] = useState([]);
   const [revenue, setRevenue] = useState([]);
   const [coupon, setCoupon] = useState([]);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const isAdminLoggedIn = useAdminAuth();
   const username = window.localStorage.getItem("user");
@@ -33,50 +32,45 @@ export const AdminHome = () => {
       .get("http://localhost:3001/flight")
       .then((res) => {
         setFlights(res.data);
-        setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
+        console.log(err);
       });
 
     axios
       .get("http://localhost:3001/inventory")
       .then((res) => {
         setInventory(res.data);
-        setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
+        console.log(err);
       });
 
     axios
       .get("http://localhost:3001/passenger")
       .then((res) => {
         setPassenger(res.data);
-        setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
+        console.log(err);
       });
 
     axios
       .get("http://localhost:3001/revenue")
       .then((res) => {
         setRevenue(res.data);
-        setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
+        console.log(err);
       });
 
     axios
       .get("http://localhost:3001/coupon")
       .then((res) => {
         setCoupon(res.data);
-        setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
+        console.log(err);
       });
   }, []);
 
