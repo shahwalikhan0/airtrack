@@ -11,12 +11,12 @@ router.get("/revenue", async (req, res) => {
     }
 );
 
-// router.post("/flight", async (req, res) => {
-//     const { flightNumber, destination, departureAirport, departureTime, arrivalTime, price, seats } = req.body;
-//     const flight = new Flight({ flightNumber, destination, departureAirport, departureTime, arrivalTime, price, seats });
-//     await flight.save();
-//     res.json({ success: true, message: "Flight added" });
-//     }
-// );
-
+//add revenue
+router.post("/addRevenue", async (req, res) => {
+    const { amount, date, type } = req.body;
+    const revenue = new Revenue({ amount, type, date });
+    await revenue.save();
+    res.json({ success: true, message: "Revenue added" });
+    }
+);
 module.exports = router;
