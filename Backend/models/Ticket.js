@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const TicketSchema = new mongoose.Schema({
-    passenger_id: Number,
-    flight_id: Number,
+    passenger_id: String,
+    flight_id: String,
 });
 
 const TicketModel = mongoose.model('ticket', TicketSchema);

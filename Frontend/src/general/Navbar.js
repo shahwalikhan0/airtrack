@@ -16,13 +16,13 @@ export function Navbar() {
 
   function handleLog(e) {
     e.preventDefault();
-    if (isUserLoggedIn === 'true') {
+    if (isUserLoggedIn === true) {
       if (window.confirm("Are you sure you want to logout?")) {
         localStorage.clear();
         navigate("/");
       }
     } 
-    else if(isUserLoggedIn === 'false' || isUserLoggedIn === null) {
+    else if(isUserLoggedIn === false || isUserLoggedIn === null) {
       navigate("/");
     }
   }

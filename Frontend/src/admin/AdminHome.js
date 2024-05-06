@@ -80,48 +80,53 @@ export const AdminHome = () => {
         <section className="service">
           <h3>Welcome - {username}</h3>
           <div className="row">
-              <h1>Flights</h1>
-              <Table
+            <h1>Flights</h1>
+            <Table
+              pagination={false}
               bordered
-                columns={flightColumns(flights)}
-                dataSource={flights}
-              />
+              columns={flightColumns(flights)}
+              dataSource={flights}
+            />
           </div>
 
           <div className="row">
             <h1>Inventory</h1>
-              <Table
+            <Table
+              pagination={false}
               bordered
-                columns={inventoryColumns(inventory)}
-                dataSource={inventory}
-              />
+              columns={inventoryColumns(inventory)}
+              dataSource={inventory}
+            />
           </div>
 
           <div className="row">
-              <h1>Passenger</h1>
-              <Table
+            <h1>Passenger</h1>
+            <Table
+              pagination={false}
               bordered
-                columns={passengerColumns(passenger)}
-                dataSource={passenger}
-              />
+              columns={passengerColumns(passenger)}
+              dataSource={passenger}
+            />
           </div>
 
           <div className="row">
             <h1>Revenue</h1>
-              <Table
+            <Table
+              pagination={false}
               bordered
-                columns={revenueColumns(revenue)}
-                dataSource={revenue}
-              />
+              columns={revenueColumns(revenue)}
+              dataSource={revenue}
+            />
           </div>
 
           <div className="row">
             <h1>Discount Coupon</h1>
-              <Table
+            <Table
+              pagination={false}
               bordered
-                columns={couponColumns(coupon)}
-                dataSource={coupon}
-              />
+              columns={couponColumns(coupon)}
+              dataSource={coupon}
+            />
           </div>
         </section>
       </main>

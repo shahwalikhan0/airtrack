@@ -18,7 +18,7 @@ router.post("/login", async (req, res) => {
   } else {
     const passenger = await Passenger.findOne({ username, password });
     if (passenger) {
-      res.json({ success: true, message: "Login successful" });
+      res.json({ success: true, message: "Login successful",passenger:passenger });
     } else {
       res
         .status(401)
@@ -43,4 +43,32 @@ router.get("/passenger", async (req, res) => {
     }
 );
 
+router.delete("/removePassenger/:id", async (req, res) => {
+  try {
+      const passengers = await Passenger.findById(req.params.id);
+      if (!passengers) {
+        return res.json({ success: false, message: "No passengers found" });
+      }
+      await Passenger.deleteOne({ _id: req.params.id });
+      return res.json({ success: true, message: "Passengers deleted" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+});  
+
+router.put("/grantMembership/:id", async (req, res) => {
+  try {
+    const passenger = await Passenger.findById(req.params.id);
+    if (!passenger) {
+      return res.json({ success: false, message: "No passengers found" });
+    }
+    passenger.isPrime = true;
+    await passenger.save();
+    return res.json({ success: true, message: "Passenger is now a prime member" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
 module.exports = router;

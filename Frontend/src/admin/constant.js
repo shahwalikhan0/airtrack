@@ -1,62 +1,15 @@
 
-
-export const bookingColumns = (flights, passengers) => {
-  const totalSeats = 250;
-  const passengerColumnsConfig = passengerColumns(passengers);
-
-  const passengerNameColumn = passengerColumnsConfig.find(
-    (col) => col.dataIndex === 'name'
-  );
-
-  const flightColumnsConfig = flightColumns(flights);
-
-  const departureFilters = flightColumnsConfig.find(
-    (col) => col.dataIndex === 'departure'
-  ).filters;
-
-  const destinationFilters = flightColumnsConfig.find(
-    (col) => col.dataIndex === 'destination'
-  ).filters;
-
-  return [
-    {
-      title: "Booking ID",
-      dataIndex: "_id",
-      key: "_id",
-    },
-    {
-      title: "Departure",
-      dataIndex: "departure",
-      key: "departure",
-      filters: departureFilters,
-      filterMode: "multiple",
-      filterSearch: true,
-      onFilter: (value, record) => record.departure.includes(value),
-    },
-    {
-      title: "Destination",
-      dataIndex: "destination",
-      key: "destination",
-      filterMode: "multiple",
-      filterSearch: true,
-      filters: destinationFilters,
-      onFilter: (value, record) => record.destination.includes(value),
-    },
-    {
-      title: "Flight Date",
-      dataIndex: "date",
-      key: "date",
-      sorter: (a, b) => new Date(a.date) - new Date(b.date),
-    },
-    {
-      title: "Booked Seats", // New column to show booked seats
-      key: "booked_seats",
-      render: (record) => totalSeats - record.seats_remaining, // Computation for booked seats
-      sorter: (a, b) => (totalSeats - a.seats_remaining) - (totalSeats - b.seats_remaining),
-    },
-  ];
+export const MANAGEMENT_ACTIONS = {
+  GRANT_MEMBERSHIP: "grantMembership",
+  REMOVE_PASSENGER: "removePassenger",
+  ADD_COUPON: "addCoupon",
+  REMOVE_COUPON: "removeCoupon",
+  ADD_FLIGHT: "addFlight",
+  REMOVE_FLIGHT: "removeFlight",
+  ADD_INVENTORY: "addInventory",
+  UPDATE_INVENTORY: "updateInventory",
+  ADD_REVENUE: "addRevenue",
 };
-
 export const flightColumns = (flights) => {
   const uniqueDestinations = new Set(
     flights.map((flight) => flight.destination)

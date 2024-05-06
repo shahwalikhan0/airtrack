@@ -3,14 +3,14 @@ import { useUserAuth } from "../general/constant";
 import { useNavigate } from "react-router-dom";
 import { Table } from "antd";
 import axios from "axios";
-import { bookingColumns, flightColumns, passengerColumns } from "../admin/constant";
+import { bookingColumns } from "./constant";
 
 export const Booking = () => {
   const navigate = useNavigate();
   const isUserLoggedIn = useUserAuth();
 
+  const [message, setMessage] = useState("");
   const [flights, setFlights] = useState([]);
-  const [passengers, setPassengers] = useState([]);
 
   useEffect(() => {
     if (!isUserLoggedIn) {
@@ -22,16 +22,14 @@ export const Booking = () => {
     axios
       .get("http://localhost:3001/flight")
       .then((res) => {
-        setFlights(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+        const today = new Date().toISOString().split("T")[0];
 
-    axios
-      .get("http://localhost:3001/passenger")
-      .then((res) => {
-        setPassengers(res.data);
+        const futureFlights = res.data.filter((flight) => {
+          const departureDate = new Date(flight.date);
+          return departureDate >= new Date(today); 
+        });
+
+        setFlights(futureFlights);
       })
       .catch((err) => {
         console.error(err);
@@ -43,10 +41,12 @@ export const Booking = () => {
       <div className="booking-container-header">
         <h1 style={{ width: "50%" }}>Airtrack - Bookings</h1>
       </div>
+      <p style={{ color: 'green', fontSize: '20px' }}>{message}</p>
+
       <Table
         bordered
-        columns={bookingColumns(flights, passengers)} // Pass flights and passengers to bookingColumns
-        dataSource={flights} 
+        columns={bookingColumns(flights, setMessage)}
+        dataSource={flights}
       />
     </main>
   );
