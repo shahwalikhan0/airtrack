@@ -18,7 +18,7 @@ router.post("/login", async (req, res) => {
   } else {
     const passenger = await Passenger.findOne({ username, password });
     if (passenger) {
-      res.json({ success: true, message: "Login successful" });
+      res.json({ success: true, message: "Login successful",passenger:passenger });
     } else {
       res
         .status(401)

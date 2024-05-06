@@ -1,3 +1,4 @@
+
 export const MANAGEMENT_ACTIONS = {
   GRANT_MEMBERSHIP: "grantMembership",
   REMOVE_PASSENGER: "removePassenger",
@@ -9,7 +10,6 @@ export const MANAGEMENT_ACTIONS = {
   UPDATE_INVENTORY: "updateInventory",
   ADD_REVENUE: "addRevenue",
 };
-
 export const flightColumns = (flights) => {
   const uniqueDestinations = new Set(
     flights.map((flight) => flight.destination)

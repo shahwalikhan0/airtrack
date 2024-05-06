@@ -1,48 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useUserAuth } from "../general/constant";
+import { useNavigate } from "react-router-dom";
+import { Table } from "antd";
+import axios from "axios";
+import { bookingColumns } from "./constant";
 
 export const Booking = () => {
-  const isLogged = localStorage.getItem("isLogged");
+  const navigate = useNavigate();
+  const isUserLoggedIn = useUserAuth();
 
-  if(isLogged === 'false' || isLogged === null){
-    window.location.href = "/";
-  }
+  const [message, setMessage] = useState("");
+  const [flights, setFlights] = useState([]);
 
-    return (
-        <>
-        <body>
-    <main className="flight-main">
-    <header>
-      <h1>Airtrack - Bookings</h1>
-    </header>
-      <table>
-        <thead>
-          <tr>
-            <th>Flight Number</th>
-            <th>Departure Time</th>
-            <th>Arrival Time</th>
-            <th>Destination</th>
-            <th>Seats Booked</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>123</td>
-            <td>10:00 AM</td>
-            <td>12:00 PM</td>
-            <td>New York</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>456</td>
-            <td>2:00 PM</td>
-            <td>4:00 PM</td>
-            <td>Los Angeles</td>
-            <td>5</td>
-          </tr>
-        </tbody>
-      </table>
+  useEffect(() => {
+    if (!isUserLoggedIn) {
+      navigate("/");
+    }
+  }, [isUserLoggedIn, navigate]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/flight")
+      .then((res) => {
+        const today = new Date().toISOString().split("T")[0];
+
+        const futureFlights = res.data.filter((flight) => {
+          const departureDate = new Date(flight.date);
+          return departureDate >= new Date(today); 
+        });
+
+        setFlights(futureFlights);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  return (
+    <main className="booking-main">
+      <div className="booking-container-header">
+        <h1 style={{ width: "50%" }}>Airtrack - Bookings</h1>
+      </div>
+      <p style={{ color: 'green', fontSize: '20px' }}>{message}</p>
+
+      <Table
+        bordered
+        columns={bookingColumns(flights, setMessage)}
+        dataSource={flights}
+      />
     </main>
-  </body>
-        </>
-    )
-}
+  );
+};
