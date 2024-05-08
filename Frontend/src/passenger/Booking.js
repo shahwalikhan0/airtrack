@@ -39,13 +39,13 @@ export const Booking = () => {
   return (
     <main className="booking-main">
       <div className="booking-container-header">
-        <h1 style={{ width: "50%" }}>Airtrack - Bookings</h1>
+        <h1 style={{ width: "100%" }}>Airtrack - Bookings</h1>
       </div>
-      <p style={{ color: 'green', fontSize: '20px' }}>{message}</p>
+      <p style={{ color: 'green', fontSize: '20px', textAlign: 'center' }}>{message}</p>
 
       <Table
         bordered
-        columns={bookingColumns(flights, setMessage)}
+        columns={bookingColumns(flights, setFlights, setMessage)}
         dataSource={flights}
       />
     </main>

@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Table } from "antd";
 import { ModalComponent } from "./ModalComponent";
-import { MANAGEMENT_ACTIONS } from "./constant";
+import { MANAGEMENT_ACTIONS, membershipColumns } from "./constant";
 import "./index.css";
 
 export const Management = () => {
   const [message, setMessage] = useState("");
+  const [membership, setMembership] = useState("");
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setMessage("");
-  //   }
-  //   , 5000);
-  // }, [message]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/membership")
+      .then((res) => {
+        setMembership(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   return (
     <>
@@ -265,6 +272,15 @@ export const Management = () => {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div className="row">
+            <h1>Membership Requests</h1>
+            <Table
+              pagination={false}
+              bordered
+              columns={membershipColumns(membership, setMembership)}
+              dataSource={membership}
+            />
           </div>
         </section>
       </main>

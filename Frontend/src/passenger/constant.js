@@ -3,7 +3,7 @@ import axios from "axios";
 import { Button } from "antd";
 import { flightColumns } from "../admin/constant";
 
-export const bookingColumns = (flights, setMessage) => {
+export const bookingColumns = (flights, setFlights, setMessage) => {
     const handleBookAction = (data) => {
         if (data?.seats_remaining <= 0) {
 
@@ -19,6 +19,13 @@ export const bookingColumns = (flights, setMessage) => {
             .put("http://localhost:3001/ticket", sendData)
             .then((res) => {
                 setMessage(res.data.message);
+                const updatedFlights = flights.map((flight) => {
+                    if (flight._id === data._id) {
+                        flight.seats_remaining -= 1;
+                    }
+                    return flight;
+                });
+                setFlights(updatedFlights);
             })
             .catch((err) => {
                 console.log(err);
@@ -144,4 +151,21 @@ export const ticketColumns = (flights) => {
 
 
     ]
+}
+export const showUpdateForm = () => {
+    hideUpdatePassword();
+    document.getElementById("update-form").style.display = "flex";
+}
+export const hideUpdateForm = () => {
+    document.getElementById("update-form").style.display = "none";
+}
+export const showUpdatePassword = () => {
+    hideUpdateForm();
+    document.getElementById("update-password").style.display = "flex";
+}
+export const hideUpdatePassword = () => {
+    document.getElementById("update-password").style.display = "none";
+}
+export const applyMembership = () => {
+    alert("You have successfully applied for membership. Please wait for the approval.");
 }

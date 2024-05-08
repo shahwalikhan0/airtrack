@@ -8,6 +8,7 @@ const InventoryRoutes = require('./routes/InventoryRoutes');
 const RevenueRoutes = require('./routes/RevenueRoutes');
 const DiscountRoutes = require('./routes/DiscountRoutes');
 const TicketRoutes = require('./routes/TicketRoutes');
+const MembershipRequestRoutes = require('./routes/MembershipRequestRoutes');
 
 const app = express();
 app.use(cors());
@@ -29,5 +30,6 @@ app.use('/', InventoryRoutes);
 app.use('/', RevenueRoutes);
 app.use('/', DiscountRoutes);
 app.use('/', TicketRoutes);
+app.use('/', MembershipRequestRoutes);
 
 

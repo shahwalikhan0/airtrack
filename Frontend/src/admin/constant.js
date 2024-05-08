@@ -1,3 +1,5 @@
+import { Button } from "antd";
+import axios from "axios";
 
 export const MANAGEMENT_ACTIONS = {
   GRANT_MEMBERSHIP: "grantMembership",
@@ -231,6 +233,72 @@ export const couponColumns = (coupon) => {
       dataIndex: "discount_percent",
       key: "discount_percent",
       sorter: (a, b) => a.discount_percent - b.discount_percent,
+    },
+  ];
+};
+
+const handleMembershipAction = (type, record, membership, setMembership) => {
+  if(type === 'approve'){
+    axios
+    .put(`http://localhost:3001/passenger/${record.user_id}`, {...record})
+    .then((res) => {
+      axios
+      .delete(`http://localhost:3001/membership/${record._id}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+    })
+    .catch((err) => {
+      console.error(err);
+      return;
+    });
+  }
+  else if(type === 'decline'){
+    axios
+    .delete(`http://localhost:3001/membership/${record._id}`)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.error(err);
+      return;
+    });
+  }
+  setMembership(membership.filter((membership) => membership._id !== record._id));
+  axios
+  .get(`http://localhost:3001/membership`)
+  .then((res) => {
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+};
+export const membershipColumns = (membership, setMembership) => {
+  return [
+    {
+      title: "Request ID",
+      dataIndex: "_id",
+      key: "_id",
+    },
+    {
+      title: "User ID",
+      dataIndex: "user_id",
+      key: "user_id",
+    },
+    {
+      title: "Approve/Decline",
+      dataIndex: "action",
+      key: "action",
+      render: (text, record) => (
+        <>
+          <Button type="primary" onClick={() => handleMembershipAction('approve', record, membership, setMembership)}>
+            Approve
+          </Button>
+          <Button type="primary" danger onClick={() => handleMembershipAction('decline', record, membership, setMembership)}>
+            Decline
+          </Button>
+        </>
+      ),
     },
   ];
 };

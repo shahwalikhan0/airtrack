@@ -25,6 +25,8 @@ export function Navbar() {
     else if(isUserLoggedIn === false || isUserLoggedIn === null) {
       navigate("/");
     }
+    else
+      navigate("/");
   }
 
   return (
