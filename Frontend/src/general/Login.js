@@ -23,7 +23,8 @@ export const Login = () => {
     axios
       .post(`http://localhost:3001/login`, credentials)
       .then((res) => {
-        window.localStorage.setItem("passenger", res.data?.passenger._id);
+        if(!admin)
+          window.localStorage.setItem("passenger", res.data?.passenger._id);
         window.localStorage.setItem("user", username);
         window.localStorage.setItem("login", true);
         window.localStorage.setItem("isAdmin", admin);

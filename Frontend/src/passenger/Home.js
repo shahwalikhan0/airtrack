@@ -10,9 +10,9 @@ export const Home = () => {
         <p>We warmly welcome you on board . Lets begin our journey to greatness</p>
         <div className="row">
             <div className="col1">
-            <h3>Membership</h3>
-                <p>If you travel frequently we would highly prefer you to have a membership of our company.</p>
-                <a className="button1" >Apply!</a>
+            <h3>Profile</h3>
+                <p>See your profile data and apply for prime membership</p>
+                <a className="button1" href="/user/profile">Profile!</a>
             </div>
             <div className="col1">
             <h3>Booking</h3>
